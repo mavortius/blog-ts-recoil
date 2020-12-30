@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Suspense } from 'react';
+import { BrowserRouter,NavLink, Route, Switch } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import './App.css';
+import HomePage from "./pages/HomePage";
+import PostsPage from "./pages/PostsPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <RecoilRoot>
+        <Suspense fallback={<p>Loading...</p>}>
+          <ul>
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/posts">Posts</NavLink></li>
+          </ul>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/posts" component={PostsPage} />
+          </Switch>
+        </Suspense>
+      </RecoilRoot>
+    </BrowserRouter>
   );
 }
 
